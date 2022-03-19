@@ -72,3 +72,37 @@ public class UserServiceImpl {
             <artifactId>ha-starter-kafka</artifactId>
             <version>2.0-SNAPSHOT</version>
         </dependency>
+
+# 版本2.1
+## 1. 基于版本2.0的基础上增加配置项
+
+    hamq:
+        ha:
+            # 表示使用什么mq
+            type: simple
+            # 定时任务重试n次
+            max-retries: 3
+            # 重试间隔
+            retry-period: 30000
+            # 发送超时时间
+            timeout: 5000`
+## 2. 改变发送消息方式
+    @Transactional(rollbackFor = Exception.class)
+    public void add() {
+        User user = new User();
+        user.setName("xiahan.li");
+        user.setAge(28);
+        user.setEmail("670759953@qq.com");
+        userMapper.insert(user);
+        
+        # 若使用Kafka，则在sendArgs添加配置信息，比如topic、key、partition
+        KafkaArgs sendArgs = new KafkaArgs();
+        sendArgs.setTopic("ha-topic");
+        HaMessage haMessage = HaMessage.builder()
+                .refId("123")
+                .message(JSONObject.toJSONString(user))
+                .sendArgs(sendArgs)
+                .build();
+
+        reliableProducer.send(haMessage);
+    }
