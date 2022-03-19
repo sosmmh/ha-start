@@ -1,6 +1,7 @@
 package com.sosmmh.demo.ha.config.simple;
 
 import com.sosmmh.demo.ha.api.reliable.AbstractReliableProducer;
+import com.sosmmh.demo.ha.api.reliable.ReliableMessage;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -10,8 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 public class SimpleLogProducer extends AbstractReliableProducer {
 
     @Override
-    public boolean actualSend(String messageId, String topic, String message) {
-        log.info("messageId={}|事务成功提交|simpleLog|topic={}|message={}", messageId, topic, message);
+    public boolean actualSend(ReliableMessage reliableMessage) {
+        log.info("messageId={}|事务成功提交|simpleLog|reliableMessage={}", reliableMessage);
         return true;
     }
+
 }

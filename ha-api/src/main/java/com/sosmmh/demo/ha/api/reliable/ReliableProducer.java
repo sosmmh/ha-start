@@ -1,13 +1,19 @@
 package com.sosmmh.demo.ha.api.reliable;
 
+import com.sosmmh.demo.ha.api.model.HaMessage;
+
+/**
+ * @author lixiahan
+ */
 public interface ReliableProducer {
+
 
     /**
      * 发送消息
-     * @param topic
-     * @param message
+     *
+     * @param haMessage haMessage
      */
-    void send(String topic, String message);
+    void send(HaMessage haMessage);
 
     /**
      * 重新发送

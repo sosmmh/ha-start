@@ -8,10 +8,12 @@ import lombok.Data;
 @Data
 public class ReliableMessage {
     private Long id;
+    private String refId;
     private String msgId;
-    private String topic;
     private String message;
     private Integer status;
     private Integer retryCount;
     private Long nextExcTime;
+    private String type;
+    private String sendArgs;
 }

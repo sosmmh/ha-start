@@ -14,15 +14,15 @@ import java.util.List;
  */
 public class ReliableMysql implements ReliableStore {
 
-    String INSERT_SQL = "INSERT INTO `ha_message` (`msg_id`, `topic`, `message`, `status`, `next_exc_time`, retry_count) " +
-            "VALUES('%s', '%s', '%s', %s, %s, 1)";
+    String INSERT_SQL = "INSERT INTO `ha_message` (`ref_id`, `msg_id`, `send_args`, `message`, `status`, `next_exc_time`, `retry_count`, `type`) " +
+            "VALUES('%s', '%s', '%s', '%s', %s, %s, %s, '%s')";
 
-    String UPDATE_SQL = "UPDATE `ha_message` set status = %s, next_exc_time = %s, retry_count = retry_count + 1 WHERE msg_id = '%s'";
+    String UPDATE_SQL = "UPDATE `ha_message` set next_exc_time = %s, retry_count = retry_count + 1, error = '%s' WHERE ref_id = '%s' AND msg_id = '%s'";
 
-    String DELETE_SQL = "DELETE FROM `ha_message` WHERE msg_id = '%s'";
+    String DELETE_SQL = "DELETE FROM `ha_message` WHERE ref_id = '%s' AND msg_id = '%s'";
 
-    String SELECT_SQL = "SELECT `id`, `msg_id` AS msgId, `topic`, `message` " +
-            "FROM `ha_message` WHERE status = ? AND next_exc_time <= ? AND retry_count < 3";
+    String SELECT_SQL = "SELECT `id`, `ref_id` AS refId, `msg_id` AS msgId, `send_args` AS sendArgs, `message` " +
+            "FROM `ha_message` WHERE status = ? AND next_exc_time <= ? AND retry_count < ?";
 
     private JdbcTemplate jdbcTemplate;
 
@@ -33,22 +33,24 @@ public class ReliableMysql implements ReliableStore {
     @Override
     public void preSend(ReliableMessage reliableMessage) {
         jdbcTemplate.execute(String.format(INSERT_SQL,
+                reliableMessage.getRefId(),
                 reliableMessage.getMsgId(),
-                reliableMessage.getTopic(),
+                reliableMessage.getSendArgs(),
                 reliableMessage.getMessage(),
                 reliableMessage.getStatus(),
-                reliableMessage.getNextExcTime()));
+                reliableMessage.getNextExcTime(),
+                1, reliableMessage.getType()));
     }
 
     @Override
-    public void postSend(String messageId) {
-        jdbcTemplate.execute(String.format(DELETE_SQL, messageId));
+    public void postSend(ReliableMessage reliableMessage) {
+        jdbcTemplate.execute(String.format(DELETE_SQL, reliableMessage.getRefId(), reliableMessage.getMsgId()));
     }
 
     @Override
-    public List<ReliableMessage> fetchTimeOutMessage4Retry() {
+    public List<ReliableMessage> fetchTimeOutMessage4Retry(Integer maxRetryCount) {
         List<ReliableMessage> messages = jdbcTemplate.query(SELECT_SQL,
-                new Object[]{MessageStatus.SENDING, HaUtil.now()},
+                new Object[]{MessageStatus.SENDING, HaUtil.now(), maxRetryCount},
                 new BeanPropertyRowMapper<>(ReliableMessage.class));
 
         return messages;
