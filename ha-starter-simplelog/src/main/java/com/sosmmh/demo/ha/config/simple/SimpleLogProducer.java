@@ -12,8 +12,7 @@ public class SimpleLogProducer extends AbstractReliableProducer {
 
     @Override
     public boolean actualSend(ReliableMessage reliableMessage) {
-        log.info("messageId={}|事务成功提交|simpleLog|reliableMessage={}", reliableMessage);
+        log.info("messageId={}|事务成功提交|simpleLog|reliableMessage={}", reliableMessage.getMsgId(), reliableMessage);
         return true;
     }
-
 }
