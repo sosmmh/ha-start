@@ -65,3 +65,10 @@ public class UserServiceImpl {
             <artifactId>ha-starter-simplelog</artifactId>
             <version>2.0-SNAPSHOT</version>
         </dependency>
+## 2. 若使用kafka的starter包，则引入
+###### 业务项目需自行配置好kafka相关的地址
+        <dependency>
+            <groupId>com.sosmmh.demo</groupId>
+            <artifactId>ha-starter-kafka</artifactId>
+            <version>2.0-SNAPSHOT</version>
+        </dependency>
