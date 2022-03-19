@@ -6,13 +6,20 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ha-start" />
+        <module name="ha-api" />
+        <module name="ha-store-mysql" />
+        <module name="ha-starter-kafka" />
+        <module name="ha-starter-simplelog" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="ha-api" options="-parameters" />
       <module name="ha-start" options="-parameters" />
+      <module name="ha-starter-kafka" options="-parameters" />
+      <module name="ha-starter-simplelog" options="-parameters" />
+      <module name="ha-store-mysql" options="-parameters" />
     </option>
   </component>
 </project>

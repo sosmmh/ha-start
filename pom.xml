@@ -13,12 +13,46 @@
 
     <groupId>com.sosmmh.demo</groupId>
     <artifactId>ha-start</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <version>2.0-SNAPSHOT</version>
+
+    <modules>
+        <module>ha-starter-kafka</module>
+        <module>ha-api</module>
+        <module>ha-starter-simplelog</module>
+        <module>ha-store-mysql</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <ha.version>2.0-SNAPSHOT</ha.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.sosmmh.demo</groupId>
+                <artifactId>ha-api</artifactId>
+                <version>${ha.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sosmmh.demo</groupId>
+                <artifactId>ha-starter-simplelog</artifactId>
+                <version>${ha.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sosmmh.demo</groupId>
+                <artifactId>ha-store-mysql</artifactId>
+                <version>${ha.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sosmmh.demo</groupId>
+                <artifactId>ha-starter-kafka</artifactId>
+                <version>${ha.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

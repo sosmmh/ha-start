@@ -56,3 +56,12 @@ public class UserServiceImpl {
         reliableProducer.send("123", JSONObject.toJSONString(user));
     }
 }
+
+
+# 版本2.0
+## 1. 引入starter包即可实现事务消息
+        <dependency>
+            <groupId>com.sosmmh.demo</groupId>
+            <artifactId>ha-starter-simplelog</artifactId>
+            <version>2.0-SNAPSHOT</version>
+        </dependency>
