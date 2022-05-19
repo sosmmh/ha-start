@@ -1,0 +1,8 @@
+/target/
+/.idea/
+**/target
+/target/
+/ha-store-mysql/target/
+/ha-starter-simplelog/target/
+/ha-starter-kafka/target/
+/ha-api/target/
