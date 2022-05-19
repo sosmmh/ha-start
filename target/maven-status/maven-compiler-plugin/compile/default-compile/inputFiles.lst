@@ -1,8 +1,0 @@
-/Users/lixiahan/IdeaProjects/person/2022/ha-start/src/main/java/com/sosmmh/demo/ha/util/HaUtil.java
-/Users/lixiahan/IdeaProjects/person/2022/ha-start/src/main/java/com/sosmmh/demo/ha/api/ReliableMessage.java
-/Users/lixiahan/IdeaProjects/person/2022/ha-start/src/main/java/com/sosmmh/demo/ha/api/ReliableProducer.java
-/Users/lixiahan/IdeaProjects/person/2022/ha-start/src/main/java/com/sosmmh/demo/ha/enums/MessageStatus.java
-/Users/lixiahan/IdeaProjects/person/2022/ha-start/src/main/java/com/sosmmh/demo/ha/api/SimpleLogProducer.java
-/Users/lixiahan/IdeaProjects/person/2022/ha-start/src/main/java/com/sosmmh/demo/ha/api/ReliableMysql.java
-/Users/lixiahan/IdeaProjects/person/2022/ha-start/src/main/java/com/sosmmh/demo/ha/api/ReliableStore.java
-/Users/lixiahan/IdeaProjects/person/2022/ha-start/src/main/java/com/sosmmh/demo/ha/api/AbstractReliableProducer.java
